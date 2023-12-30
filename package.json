@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Node.js CRUD API",
   "main": "main.js",
-  "scripts": {},
+  "scripts": {
+    "typescript": "tsc",
+    "typescript-watch": "tsc --watch"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/syauqeesy/node-crud.git"
@@ -18,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/syauqeesy/node-crud/issues"
   },
-  "homepage": "https://github.com/syauqeesy/node-crud#readme"
+  "homepage": "https://github.com/syauqeesy/node-crud#readme",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
 }
