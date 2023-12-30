@@ -1,0 +1,22 @@
+{
+  "name": "node-crud",
+  "version": "1.0.0",
+  "description": "Node.js CRUD API",
+  "main": "main.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syauqeesy/node-crud.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "Express",
+    "TypeORM"
+  ],
+  "author": "Ahmad Syauqi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syauqeesy/node-crud/issues"
+  },
+  "homepage": "https://github.com/syauqeesy/node-crud#readme"
+}
