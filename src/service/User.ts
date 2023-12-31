@@ -1,14 +1,26 @@
+import jwt from "jsonwebtoken";
+
 import {
   ApplicationError,
   newApplicationError,
 } from "../application-error/main";
-import { ERROR_USER_USERNAME_ALREADY_USED } from "../application-error/user";
+import {
+  ERROR_USER_NOT_FOUND,
+  ERROR_USER_PASSWORD_WRONG,
+  ERROR_USER_USERNAME_ALREADY_USED,
+} from "../application-error/user";
 import { UserEntity } from "../entity/main";
-import { CreateUserRequest, UserInfo } from "../payload/user";
+import {
+  CreateUserRequest,
+  LoginRequest,
+  LoginResponse,
+  UserInfo,
+} from "../payload/user";
 import Service from "./Service";
 
 interface UserService {
   create(body: CreateUserRequest): Promise<[UserInfo | null, ApplicationError]>;
+  login(body: LoginRequest): Promise<[LoginResponse | null, ApplicationError]>;
 }
 
 class User extends Service implements UserService {
@@ -34,6 +46,37 @@ class User extends Service implements UserService {
     }
 
     return [user.getPublicInfo(), null];
+  }
+
+  public async login(
+    body: LoginRequest
+  ): Promise<[LoginResponse | null, ApplicationError]> {
+    const user = await this.repository.user.findOne({
+      where: {
+        username: body.username,
+      },
+    });
+    if (!user) return [null, ERROR_USER_NOT_FOUND];
+
+    if (!user.comparePassword(body.password))
+      return [null, ERROR_USER_PASSWORD_WRONG];
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      this.config.APPLICATION_KEY,
+      {
+        expiresIn: 3600 * 24,
+      }
+    );
+
+    return [
+      {
+        authentication_token: token,
+      },
+      null,
+    ];
   }
 }
 

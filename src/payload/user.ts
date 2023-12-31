@@ -8,3 +8,12 @@ export type CreateUserRequest = {
   username: string;
   password: string;
 };
+
+export type LoginRequest = {
+  username: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  authentication_token: string;
+};

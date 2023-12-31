@@ -20,6 +20,9 @@ const newHandler = (
   e.post("/api/v1/user/create", (req: Request, res: Response) =>
     h.user.create(req, res)
   );
+  e.post("/api/v1/user/login", (req: Request, res: Response) =>
+    h.user.login(req, res)
+  );
 
   return h;
 };
