@@ -1,7 +1,9 @@
-import { BaseEntity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
+import { UserInfo } from "../payload/user";
 
+@Entity("users")
 class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string = uuid();
@@ -36,6 +38,16 @@ class User extends BaseEntity {
     nullable: true,
   })
   deleted_at: number | null = null;
+
+  public getPublicInfo(): UserInfo {
+    const userInfo: UserInfo = {
+      id: this.id,
+      username: this.username,
+      created_at: this.getCreatedAt(),
+    };
+
+    return userInfo;
+  }
 
   public setUsername(username: string): void {
     this.username = username;

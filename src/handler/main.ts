@@ -17,7 +17,9 @@ const newHandler = (
     user: new User(config, service),
   };
 
-  e.get("/api/v1/user", (req: Request, res: Response) => h.user.get(req, res));
+  e.post("/api/v1/user/create", (req: Request, res: Response) =>
+    h.user.create(req, res)
+  );
 
   return h;
 };
