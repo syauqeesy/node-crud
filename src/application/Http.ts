@@ -40,11 +40,11 @@ class Http implements Application {
   }
 
   public run(): void {
-    this.e.use(json());
-
     if (!this.config.APPLICATION_KEY) {
       return console.log("application key is not set");
     }
+
+    this.e.use(json());
 
     this.database.connect();
 
