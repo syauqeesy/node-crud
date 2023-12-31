@@ -4,6 +4,8 @@ import express, { Application as ExpressApplication, json } from "express";
 import Application from "./Application";
 import Config from "./Config";
 import Database from "./Database";
+import { newService, service } from "../service/main";
+import { newRepository, repository } from "../entity/main";
 
 class Http implements Application {
   private readonly e: ExpressApplication;
@@ -11,11 +13,21 @@ class Http implements Application {
   private readonly config: Config;
   private readonly database: Database;
 
+  private readonly repository: repository;
+  private readonly service: service;
+
   constructor() {
     this.e = express();
 
     this.config = new Config();
     this.database = new Database(this.config);
+
+    this.repository = newRepository(this.database.getDataSource());
+    this.service = newService(
+      this.config,
+      this.repository,
+      this.database.getDataSource().createEntityManager()
+    );
   }
 
   private closeServer(server: Server): void {

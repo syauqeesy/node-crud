@@ -14,4 +14,4 @@ const newRepository = (dataSource: DataSource): repository => {
   return r;
 };
 
-export { newRepository, User as UserEntity };
+export { newRepository, repository, User as UserEntity };
