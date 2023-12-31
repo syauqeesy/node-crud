@@ -6,6 +6,7 @@ import Config from "./Config";
 import Database from "./Database";
 import { newService, service } from "../service/main";
 import { newRepository, repository } from "../entity/main";
+import { newHandler } from "../handler/main";
 
 class Http implements Application {
   private readonly e: ExpressApplication;
@@ -45,10 +46,12 @@ class Http implements Application {
       return console.log("application key is not set");
     }
 
+    this.database.connect();
+
+    newHandler(this.e, this.config, this.service);
+
     const server = this.e.listen(this.config.APPLICATION_PORT, () => {
       console.log(`server run on port: ${this.config.APPLICATION_PORT}`);
-
-      this.database.connect();
     });
 
     process.on("SIGINT", (): void => this.closeServer(server));
