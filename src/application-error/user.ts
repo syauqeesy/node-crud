@@ -5,10 +5,11 @@ export const ERROR_USER_USERNAME_ALREADY_USED = newApplicationError(
   "username already used"
 );
 
-export const ERROR_USER_NOT_FOUND = newApplicationError(
+export const ERROR_USER_USERNAME_NOT_FOUND = newApplicationError(
   404,
   "username not found"
 );
+export const ERROR_USER_NOT_FOUND = newApplicationError(404, "user not found");
 export const ERROR_USER_PASSWORD_WRONG = newApplicationError(
   400,
   "password wrong"

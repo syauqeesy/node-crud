@@ -12,6 +12,7 @@ import {
 import { UserEntity } from "../entity/main";
 import {
   CreateUserRequest,
+  GetUserByIdRequest,
   LoginRequest,
   LoginResponse,
   UserInfo,
@@ -21,6 +22,9 @@ import Service from "./Service";
 interface UserService {
   create(body: CreateUserRequest): Promise<[UserInfo | null, ApplicationError]>;
   login(body: LoginRequest): Promise<[LoginResponse | null, ApplicationError]>;
+  getById(
+    body: GetUserByIdRequest
+  ): Promise<[UserInfo | null, ApplicationError]>;
 }
 
 class User extends Service implements UserService {
@@ -77,6 +81,19 @@ class User extends Service implements UserService {
       },
       null,
     ];
+  }
+
+  public async getById(
+    body: GetUserByIdRequest
+  ): Promise<[UserInfo | null, ApplicationError]> {
+    const user = await this.repository.user.findOne({
+      where: {
+        id: body.id,
+      },
+    });
+    if (!user) return [null, ERROR_USER_NOT_FOUND];
+
+    return [user.getPublicInfo(), null];
   }
 }
 

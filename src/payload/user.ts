@@ -17,3 +17,7 @@ export type LoginRequest = {
 export type LoginResponse = {
   authentication_token: string;
 };
+
+export type GetUserByIdRequest = {
+  id: string;
+};

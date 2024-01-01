@@ -17,7 +17,7 @@ export const writeSuccessResponse = (
 
 export const writeFailResponse = (
   res: Response,
-  status: 400 | 404 | 500,
+  status: 400 | 401 | 404 | 500,
   message: string,
   error: unknown
 ): Response => {

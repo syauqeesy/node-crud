@@ -64,7 +64,7 @@ class User extends BaseEntity {
   }
 
   public getCreatedAt(): string {
-    return new Date(this.created_at).toISOString();
+    return new Date(+this.created_at).toISOString();
   }
 }
 

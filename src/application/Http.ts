@@ -1,5 +1,10 @@
 import { Server } from "http";
-import express, { Application as ExpressApplication, json } from "express";
+import express, {
+  Application as ExpressApplication,
+  Request,
+  Response,
+  json,
+} from "express";
 
 import Application from "./Application";
 import Config from "./Config";
@@ -7,6 +12,7 @@ import Database from "./Database";
 import { newService, service } from "../service/main";
 import { newRepository, repository } from "../entity/main";
 import { newHandler } from "../handler/main";
+import { writeFailResponse } from "../common/response";
 
 class Http implements Application {
   private readonly e: ExpressApplication;
@@ -49,6 +55,12 @@ class Http implements Application {
     this.database.connect();
 
     newHandler(this.e, this.config, this.service);
+
+    this.e.all("*", (_: Request, response: Response): void => {
+      writeFailResponse(response, 404, "path not found", null);
+
+      return;
+    });
 
     const server = this.e.listen(this.config.APPLICATION_PORT, () => {
       console.log(`server run on port: ${this.config.APPLICATION_PORT}`);

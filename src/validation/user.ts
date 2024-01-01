@@ -9,3 +9,7 @@ export const loginRequestValidation = Joi.object({
   username: Joi.string().required().alphanum().max(32).trim(),
   password: Joi.string().required().min(8).trim(),
 });
+
+export const getUserByIdRequestValidation = Joi.object({
+  id: Joi.string().required().uuid(),
+});
