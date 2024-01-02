@@ -13,8 +13,14 @@ const newService = (
   repository: repository,
   entityManager: EntityManager
 ): service => {
+  const dependencies = {
+    config,
+    repository,
+    entityManager,
+  };
+
   const s: service = {
-    user: new User(config, repository, entityManager),
+    user: new User(dependencies),
   };
 
   return s;

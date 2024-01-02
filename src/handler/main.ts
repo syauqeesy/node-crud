@@ -14,8 +14,13 @@ const newHandler = (
   config: Config,
   service: service
 ): handler => {
+  const dependencies = {
+    config,
+    service,
+  };
+
   const h: handler = {
-    user: new User(config, service),
+    user: new User(dependencies),
   };
 
   e.post("/api/v1/user/create", (req: Request, res: Response) =>

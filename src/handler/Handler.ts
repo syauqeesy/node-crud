@@ -5,9 +5,9 @@ class Handler {
   protected readonly config: Config;
   protected readonly service: service;
 
-  constructor(config: Config, service: service) {
-    this.config = config;
-    this.service = service;
+  constructor(dependencies: { config: Config; service: service }) {
+    this.config = dependencies.config;
+    this.service = dependencies.service;
   }
 }
 

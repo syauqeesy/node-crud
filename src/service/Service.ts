@@ -7,14 +7,14 @@ class Service {
   protected readonly repository: repository;
   protected readonly entityManager: EntityManager;
 
-  constructor(
-    config: Config,
-    repository: repository,
-    entityManager: EntityManager
-  ) {
-    this.config = config;
-    this.repository = repository;
-    this.entityManager = entityManager;
+  constructor(dependencies: {
+    config: Config;
+    repository: repository;
+    entityManager: EntityManager;
+  }) {
+    this.config = dependencies.config;
+    this.repository = dependencies.repository;
+    this.entityManager = dependencies.entityManager;
   }
 }
 
