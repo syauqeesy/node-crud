@@ -39,16 +39,6 @@ class User extends BaseEntity {
   })
   deleted_at: number | null = null;
 
-  public getPublicInfo(): UserInfo {
-    const userInfo: UserInfo = {
-      id: this.id,
-      username: this.username,
-      created_at: this.getCreatedAt(),
-    };
-
-    return userInfo;
-  }
-
   public setUsername(username: string): void {
     this.username = username;
   }
@@ -65,6 +55,16 @@ class User extends BaseEntity {
 
   public getCreatedAt(): string {
     return new Date(+this.created_at).toISOString();
+  }
+
+  public getPublicInfo(): UserInfo {
+    const userInfo: UserInfo = {
+      id: this.id,
+      username: this.username,
+      created_at: this.getCreatedAt(),
+    };
+
+    return userInfo;
   }
 }
 
