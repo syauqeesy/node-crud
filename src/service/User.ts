@@ -75,12 +75,11 @@ class User extends Service implements UserService {
       }
     );
 
-    return [
-      {
-        authentication_token: token,
-      },
-      null,
-    ];
+    const loginResponse: LoginResponse = {
+      authentication_token: token,
+    };
+
+    return [loginResponse, null];
   }
 
   public async getById(
